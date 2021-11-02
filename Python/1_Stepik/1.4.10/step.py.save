@@ -1,0 +1,38 @@
+
+rel = {}
+rel['None'] = []
+rel['None'].append('global')
+var = {}
+
+def get(s, o):
+	if o not in var:
+		return 'global'
+	elif s == 'None' or o in var[s]:
+		return s
+	for key, value in rel.items():
+		if s in value:
+			return get(key, o)
+
+n = int(input())
+
+for i in range(n):
+#	print(rel)
+#	print(var)
+	op, scope, obj = input().split()
+	if op == 'add':
+		if scope in var:
+			var[scope].append(obj)
+		else:
+			var[scope] = []
+			var[scope].append(obj)
+	elif op == 'create':
+		if obj  not in rel:
+			rel[obj] = []
+		rel[obj].append(scope)
+	else:
+		print(get(scope, obj))
+
+
+#print(rel)
+#print(var)
+
